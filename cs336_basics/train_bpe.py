@@ -162,7 +162,7 @@ def train_bpe(
     
      """
 
-    merge = []#记录合并
+    merges = []#记录合并
     #.    --- 4. 迭代合并  ---
 
     for _ in range(num_merges): #每次循环得到一个词
@@ -180,7 +180,7 @@ def train_bpe(
 
 
         #记录合并对
-        merge.append(best_pair)
+        merges.append(best_pair)
 
         # 创建新的合并符号
         new_token = best_pair[0] + best_pair[1]  
@@ -243,14 +243,14 @@ def train_bpe(
 
     
     # --- 5. 组成最终词表 ---
-    for pair in merge:
+    for pair in merges:
         new_id = len(vocab)
         vocab[new_id] = pair[0] + pair[1]
     for i in special_tokens:
         token_byte = i.encode('utf-8')
         vocab[len(vocab)] = token_byte
 
-    return vocab,merge
+    return vocab,merges
 
 
 
